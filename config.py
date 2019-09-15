@@ -1,6 +1,6 @@
 import configparser
 
-CONFIG_PATH = 'userconfig.txt'
+CONFIG_PATH = '/boot/userconfig.txt'
 
 
 class Config:

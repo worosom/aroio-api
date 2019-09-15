@@ -1,67 +1,49 @@
-from subprocess import check_output
 from functools import lru_cache as cache
 from system.calls import Calls
 
 
 class Network:
     @property
-    def ip_addr_eth(self):
-        try:
-            return Calls.call('IP_ADDR_ETH')
-        except Exception as e:
-            print(e)
-            return None
+    def lan_ipaddr(self):
+        return Calls.call('IPv4_ADDR_ETH')
 
     @property
-    def netmask_eth(self):
-        try:
-            return Calls.call('NETMASK_ETH')
-        except Exception as e:
-            print(e)
-            return None
+    def lan_netmask(self):
+        return Calls.call('NETMASK_ETH')
+
+    @property
+    def lan_gateway(self):
+        return Calls.call('GATEWAY_ETH')
 
     @property
     @cache()
-    def mac_addr_eth(self):
-        try:
-            return Calls.call('MAC_ADDR_ETH')
-        except Exception as e:
-            print(e)
-            return None
+    def lan_macaddr(self):
+        return Calls.call('MAC_ADDR_ETH')
 
     @property
     @cache()
     def has_wlan(self):
-        try:
-            ret = Calls.call('HAS_WLAN')
-        except Exception as e:
-            print(e)
-            return False
-        return bool(ret)
+        return Calls.call('HAS_WLAN')
 
     @property
     @cache()
-    def mac_addr_wlan(self):
+    def wlan_macaddr(self):
         if self.has_wlan:
-            try:
-                return Calls.call('MAC_ADDR_WLAN')
-            except Exception as e:
-                print(e)
-                return None
+            return Calls.call('MAC_ADDR_WLAN')
 
     @property
-    def ip_addr_wlan(self):
+    def wlan_ipaddr(self):
         if self.has_wlan:
-            try:
-                return Calls.call('IP_ADDR_WLAN')
-            except Exception as e:
-                print(e)
-                return None
+            return Calls.call('IPv4_ADDR_WLAN')
+
+    @property
+    def wlan_netmask(self):
+        return Calls.call('NETMASK_ETH')
+
+    @property
+    def wlan_gateway(self):
+        return Calls.call('GATEWAY_ETH')
 
     def iwlist(self):
         if self.has_wlan:
-            try:
-                return Calls.call('HAS_WLAN')
-            except Exception as e:
-                print(e)
-            return None
+            return Calls.call('IWLIST')

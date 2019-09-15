@@ -16,3 +16,6 @@ class API:
 
     def get_network_status(self):
         return props(self.config.system.network)
+
+    def get_iwlist(self):
+        return self.config.system.network.iwlist()

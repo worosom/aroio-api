@@ -31,6 +31,22 @@ def get():
     return resp
 
 
+@app.route('/api/iwlist', methods=['get'])
+def get_iwlist():
+    resp = jsonify({
+        'iwlist': api.get_iwlist()
+    })
+    return resp
+
+
+@app.route('/api/convolver/set_active_filter', methods=['put'])
+def set_active_filter():
+    data = request.get_json()
+
+    convolver.active_filter = data['active_filter']
+    return jsonify({'status': 'ok'})
+
+
 @app.route('/api', methods=['put'])
 def put():
     data = request.get_json()
@@ -43,7 +59,7 @@ def put():
 
 
 def main(args):
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
 
 
 if __name__ == "__main__":

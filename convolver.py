@@ -1,10 +1,7 @@
 import os
-from subprocess import run, check_output
+from system.calls import Calls
 
-GET_FILTER = '/usr/bin/controlbrutefir getFilter'
-SET_FILTER = '/usr/bin/controlbrutefir chgFilter'
-
-FILTER_DIR = './filter'
+FILTER_DIR = '/boot/filter'
 
 
 class Convolver:
@@ -13,19 +10,12 @@ class Convolver:
 
     @property
     def active_filter(self):
-        try:
-            ret = check_output(GET_FILTER, shell=True).decode('UTF-8')
-            return int(ret.split(':')[-1])//2
-        except Exception as e:
-            print(e)
+        return Calls.call('GET_FILTER')
 
     @active_filter.setter
-    def set_filter(self, value):
-        cmd = f'{SET_FILTER} {0} {2*value} {1} {2*value + 1}'
-        try:
-            run(cmd)
-        except Exception as e:
-            print(e)
+    def active_filter(self, value):
+        value = int(value)
+        return Calls.run('SET_FILTER', f'0 {2*value} 1 {2*value + 1}')
 
     def get_filter_choices(self):
         try:
