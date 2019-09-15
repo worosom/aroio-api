@@ -43,7 +43,7 @@ def put():
 
 
 def main(args):
-    app.run(debug=True)
+    app.run(debug=DEV, host='0.0.0.0')
 
 
 if __name__ == "__main__":
