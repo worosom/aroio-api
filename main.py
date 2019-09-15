@@ -47,6 +47,13 @@ def set_active_filter():
     return jsonify({'status': 'ok'})
 
 
+@app.route('/api/system', methods=['post'])
+def system():
+    data = request.get_json()
+    if data['reboot']:
+        system.reboot()
+
+
 @app.route('/api', methods=['put'])
 def put():
     data = request.get_json()
