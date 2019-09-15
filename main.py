@@ -48,7 +48,7 @@ def set_active_filter():
 
 
 @app.route('/api/system', methods=['post'])
-def system():
+def post_system():
     data = request.get_json()
     if data['reboot']:
         system.reboot()
