@@ -5,6 +5,15 @@ def get_filter_fmt(ret): return int(ret.split(':')[-1])//2
 
 
 _calls = {
+    'CHECKSOUNDCARD': {
+        'call': 'checksoundcard'
+    },
+    'HEARTBEAT_LED': {
+        'call': 'echo heartbeat >/sys/class/leds/led0/trigger'
+    },
+    'REBOOT': {
+        'call': 'reboot -d 1 &'
+    },
     'MAC_ADDR_ETH': {
         'call': 'cat /sys/class/net/eth0/address',
         'returns': str
@@ -88,9 +97,13 @@ class Calls:
         return check_output(call['call'], shell=True)
 
     @staticmethod
-    def run(_call, args):
+    def run(_call, *args):
         try:
-            run(f'{_calls[_call]["call"]} {args}')
+            cmd = _calls[_call]['call']
+            if args:
+                for arg in args:
+                    cmd = f'{cmd} {arg}'
+            run(cmd, shell=True)
         except Exception as e:
             print(e)
             return e
