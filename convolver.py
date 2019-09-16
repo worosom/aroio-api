@@ -17,6 +17,14 @@ class Convolver:
         value = int(value)
         return Calls.run('SET_FILTER', f'0 {2*value} 1 {2*value + 1}')
 
+    @property
+    def volume(self):
+        return Calls.call('GET_VOLUME')
+
+    @volume.setter
+    def volume(self, value):
+        return Calls.run('SET_VOLUME', value)
+
     def get_filter_choices(self):
         try:
             rate = str(int(self.config['rate']) // 1000)

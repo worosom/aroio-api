@@ -69,6 +69,13 @@ _calls = {
     },
     'SET_FILTER': {
         'call': '/usr/bin/controlbrutefir chgFilter'
+    },
+    'GET_VOLUME': {
+        'call': '/usr/bin/controlbrutefir getVol',
+        'returns': int
+    },
+    'SET_VOLUME': {
+        'call': '/usr/bin/controlbrutefir volControl'
     }
 }
 
@@ -83,13 +90,13 @@ class Calls:
                 output = output.decode('utf-8')
             if call['returns'] == list:
                 output = output.splitlines()
-            if 'returns' in call.keys():
+            if 'returns' in call:
                 output = call['returns'](output)
-            if 'format' in call.keys():
+            if 'format' in call:
                 output = call['format'](output)
             return output
         except Exception as e:
-            print(e)
+            print(_call, e)
             return str(e)
 
     @staticmethod
@@ -105,5 +112,5 @@ class Calls:
                     cmd = f'{cmd} {arg}'
             run(cmd, shell=True)
         except Exception as e:
-            print(e)
+            print(_call, e)
             return e
