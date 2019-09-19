@@ -1,11 +1,6 @@
-import asyncio
-from shell import run
-
-RESTART_LMS = 'killall startstreamer.sh && killall shairport && killall squeezelite && /usr/bin/startstreamer.sh &> /dev/null &'
+from .calls import Calls
 
 
 class LMS:
     def restart(self):
-        asyncio.run(
-            run(RESTART_LMS)
-        )
+        Calls.run('RESTART_LMS')

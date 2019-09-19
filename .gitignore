@@ -122,9 +122,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-# VIM swap
-*.swp
-*.swo
-
-userconfig.txt
