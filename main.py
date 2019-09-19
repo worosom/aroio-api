@@ -1,10 +1,11 @@
+from os.path import join
 import sys
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from system import System
 from config import Config
 from convolver import Convolver
 from api import API
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/', static_folder='static')
 
 DEV = True
 
@@ -17,6 +18,16 @@ system = System()
 config = Config(system)
 convolver = Convolver(config)
 api = API(config)
+
+
+@app.route('/')
+def index():
+    return send_from_directory('static', 'index.html')
+
+
+@app.route('/<path>')
+def audio(path):
+    return send_from_directory('static', f'{path}/index.html')
 
 
 @app.route('/api', methods=['get'])
