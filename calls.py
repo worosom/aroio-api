@@ -23,7 +23,7 @@ _calls = {
         'returns': str
     },
     'IPv6_ADDR_ETH': {
-        'call': 'ifconfig eth0 | grep inet6 | grep -v Link | awk \'{ print $3 }\'',
+        'call': 'ifconfig eth0 | grep inet6 | grep -v 127 | grep -v inet | awk -F: \'{ print $2 }\' | awk \'{ print $1 }\'',
         'returns': str
     },
     'NETMASK_ETH': {
@@ -39,11 +39,11 @@ _calls = {
         'returns': str
     },
     'IPv4_ADDR_WLAN': {
-        'call': 'ifconfig wlan0 | grep inet | grep -v 127 | grep -v inet6 | awk -F: \'{ print $2 }\' | awk \'{ print $1 }\'',
+        'call': 'echo test',
         'returns': str
     },
     'IPv6_ADDR_WLAN': {
-        'call': 'ifconfig wlan0 | grep inet6 | awk \'{ print $3 }\'',
+        # 'call': 'ifconfig wlan0 | grep inet6 | grep -v Link | awk -F: \'{ print $2 }\' | awk \'{ print $1 }\'',
         'returns': str
     },
     'NETMASK_WLAN': {
@@ -101,7 +101,7 @@ class Calls:
 
     @staticmethod
     def check_output(call):
-        return check_output(call['call'], shell=True).strip()
+        return check_output(call['call'], shell=True)
 
     @staticmethod
     def run(_call, *args):

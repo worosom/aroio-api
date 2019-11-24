@@ -14,6 +14,11 @@ class API:
     def __init__(self, config):
         self.config = config
 
+    def get_system_status(self):
+        return {
+            'network': self.get_network_status()
+        }
+
     def get_network_status(self):
         return props(self.config.system.network)
 

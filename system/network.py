@@ -4,8 +4,12 @@ from system.calls import Calls
 
 class Network:
     @property
-    def lan_ipaddr(self):
+    def lan_ipv4addr(self):
         return Calls.call('IPv4_ADDR_ETH')
+
+    @property
+    def lan_ipv6addr(self):
+        return Calls.call('IPv6_ADDR_ETH')
 
     @property
     def lan_netmask(self):
@@ -21,7 +25,6 @@ class Network:
         return Calls.call('MAC_ADDR_ETH')
 
     @property
-    @cache()
     def has_wlan(self):
         return Calls.call('HAS_WLAN')
 
@@ -32,9 +35,14 @@ class Network:
             return Calls.call('MAC_ADDR_WLAN')
 
     @property
-    def wlan_ipaddr(self):
+    def wlan_ipv4addr(self):
         if self.has_wlan:
             return Calls.call('IPv4_ADDR_WLAN')
+
+    @property
+    def wlan_ipv6addr(self):
+        if self.has_wlan:
+            return Calls.call('IPv6_ADDR_WLAN')
 
     @property
     def wlan_netmask(self):
@@ -47,3 +55,5 @@ class Network:
     def iwlist(self):
         if self.has_wlan:
             return Calls.call('IWLIST')
+        else:
+            return []

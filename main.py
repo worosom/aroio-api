@@ -6,7 +6,7 @@ from convolver import Convolver
 from api import API
 app = Flask(__name__, static_url_path='/', static_folder='dist')
 
-DEV = False
+DEV = True
 
 if DEV:
     from flask_cors import CORS
@@ -23,7 +23,7 @@ api = API(config)
 def get():
     resp = jsonify({
         'config': dict(config.config),
-        'network': api.get_network_status(),
+        'system': api.get_system_status(),
         'convolver': {
             'choices': convolver.get_filter_choices()
         }
