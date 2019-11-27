@@ -6,7 +6,7 @@ from convolver import Convolver
 from api import API
 app = Flask(__name__, static_url_path='/', static_folder='dist')
 
-DEV = True
+DEV = False
 
 if DEV:
     from flask_cors import CORS
