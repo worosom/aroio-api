@@ -24,3 +24,9 @@ class API:
 
     def get_iwlist(self):
         return self.config.system.network.iwlist()
+
+    def search_update(self):
+        return self.config.system.search_update(self.config['usebeta'])
+
+    def get_log(self, log):
+        return self.config.system.get_log(log)

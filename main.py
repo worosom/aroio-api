@@ -54,6 +54,16 @@ def post_system():
         system.reboot()
 
 
+@app.route('/api/system/update', methods=['GET'])
+def search_update():
+    return jsonify({'remote_local_versions': api.search_update()})
+
+
+@app.route('/api/logs/<log>', methods=['GET'])
+def get_log(log):
+    return jsonify({log: api.get_log(log)})
+
+
 @app.route('/api', methods=['put'])
 def put():
     data = request.get_json()

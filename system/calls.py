@@ -76,6 +76,42 @@ _calls = {
     },
     'SET_VOLUME': {
         'call': '/usr/bin/controlbrutefir volControl'
+    },
+    'SEARCH_UPDATE': {
+        'call': '/usr/bin/update -c | head -n 2',
+        'returns': str
+    },
+    'SEARCH_UPDATE_BETA': {
+        'call': '/usr/bin/update -c -u beta | head -n 2',
+        'returns': list
+    },
+    'NETWORKLOG': {
+        'call': 'ifconfig',
+        'returns': str
+    },
+    'KERNELLOG': {
+        'call': 'dmesg',
+        'returns': str
+    },
+    'SYSTEMLOG': {
+        'call': 'journalctl -b',
+        'returns': str
+    },
+    'JACKDLOG': {
+        'call': 'journalctl -b -u jackd',
+        'returns': str
+    },
+    'BRUTEFIRLOG': {
+        'call': 'journalctl -b -u brutefir',
+        'returns': str
+    },
+    'SQUEEZELITELOG': {
+        'call': 'journalctl -b -u squeezelite',
+        'returns': str
+    },
+    'ALSALOG': {
+        'call': '/bin/controlaudio stop && aplay --duration=1 -Dhw:0 --dump-hw-params /dev/zero 2>&1 || true && controlaudio start',
+        'returns': str
     }
 }
 

@@ -23,3 +23,11 @@ class System:
         Calls.run('HEARTBEAT_LED')
         Calls.run('CHECKSOUNDCARD')
         Calls.run('REBOOT')
+
+    def search_update(self, use_beta=False):
+        if use_beta:
+            return Calls.call('SEARCH_UPDATE_BETA')
+        return Calls.call('SEARCH_UPDATE')
+
+    def get_log(self, log):
+        return Calls.call(f'{log}log'.upper())
