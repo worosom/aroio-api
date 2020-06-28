@@ -133,7 +133,11 @@ class Calls:
             return output
         except Exception as e:
             print(_call, e)
-            return str(e)
+            if 'returns' in call:
+                if call['returns'] == bool:
+                    return False
+            else:
+                return str(e)
 
     @staticmethod
     def check_output(call):
