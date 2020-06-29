@@ -75,12 +75,18 @@ def put():
     return resp
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+
+@app.route('/<path>')
 def catch_all(path):
     if path.lower().endswith(('js', 'css')):
         return send_from_directory('dist', f'{path}')
-    return app.send_static_file('index.html')
+    if path.startswith('de'):
+        return index()
+    return send_from_directory('dist', f'{path}/index.html')
 
 
 def main(args):
